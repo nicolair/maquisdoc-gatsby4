@@ -24,7 +24,6 @@
     "gatsby": "^4.19.0",
     "gatsby-plugin-apollo": "^4.0.2",
     "gatsby-plugin-emotion": "^7.24.0",
-    "gatsby-plugin-typography": "^4.24.0",
     "gatsby-source-filesystem": "^4.19.0",
     "gatsby-source-graphql": "^4.24.0",
     "gatsby-theme-material-ui": "^5.3.0",
@@ -36,7 +35,6 @@
     "react-latex-next": "^2.2.0",
     "react-loader-spinner": "^5.3.4",
     "react-promise-tracker": "^2.1.1",
-    "react-typography": "^0.16.20",
     "typography": "^0.16.21",
     "typography-theme-kirkham": "^0.16.19"
   }

@@ -2,7 +2,7 @@ graphql_server_url = process.env.MQD_GRAPHQL_SERVER_URL
 
 module.exports = {
   siteMetadata: {
-    title: "maquisdoc-gatsby4",
+    title: "maquisdoc",
     math_exos: {'url_diff': "https://maquisdoc-math.fra1.digitaloceanspaces.com/math-exos/"},
     servers:{ 'latexgithub':{'url':process.env.FLASK_URL}}
   },
