@@ -99,7 +99,7 @@ const FeuilleExoPage = ({ data, pageContext}) => {
                             variant="outlined" 
                             sx={{ml: 3}}
                             css={css`color: darkgreen;`}
-                            startIcon={<NavigateNextIcon />}
+                            endIcon={<NavigateNextIcon />}
                     >
                       Suivant 
                     </Button> 

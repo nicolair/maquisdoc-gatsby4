@@ -304,7 +304,7 @@ const RapidexoPage = ({ data })=> {
               <Button 
                 onClick={prec}
                 variant="outlined" 
-                sx={{ml: 3}}
+                sx={{ml: 2}}
                 css={css`color: darkgreen;`}
                 startIcon={<NavigateBeforeIcon />}
               > 
@@ -319,9 +319,9 @@ const RapidexoPage = ({ data })=> {
               <Button 
                 onClick={suiv}
                 variant="outlined" 
-                sx={{ml: 3}}
+                sx={{mr: 2}}
                 css={css`color: darkgreen;`}
-                startIcon={<NavigateNextIcon />}
+                endIcon={<NavigateNextIcon />}
               >
                 Suivant
               </Button>
