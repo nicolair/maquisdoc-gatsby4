@@ -4,7 +4,6 @@ import { css } from "@emotion/react";
 import { Link } from "gatsby";
 
 import Layout from "../components/layout";
-import LayoutVues from "../components/layoutvues";
 import TitreVue from "../components/titrevue"
 import IconeVueDePres from "/src/components/icones/iconevuedepres";
 
@@ -184,7 +183,6 @@ const ExercicePage = ({ data, pageContext}) => {
     
   return (
     <Layout>
-      <LayoutVues>
         <Container maxWidth="md" sx={{mt: 3, mb:3}}>
           <TitreVue 
             nomnoeud={exo.titre}
@@ -214,7 +212,6 @@ const ExercicePage = ({ data, pageContext}) => {
             </Grid>
           </Grid>
         </Container>
-      </LayoutVues>
     </Layout>
   )
 }

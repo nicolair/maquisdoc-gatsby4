@@ -15,7 +15,6 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 import Layout from "../../components/layout";
-import LayoutVues from "../../components/layoutvues";
 import LatexBlock from "../../components/latexblock";
 import TitreVue from "../../components/titrevue";
 
@@ -203,7 +202,7 @@ const RapidexoPage = ({ data })=> {
                          onChange={formik.handleChange}
                          min='0'
                          max='30'
-                         css={css`margin-left:2%; width:15%`}
+                         css={css`margin-left:2%; width:40pt`}
                        />
                     </Grid>)
                   }
@@ -215,6 +214,7 @@ const RapidexoPage = ({ data })=> {
                     <Button 
                       type="submit"
                       variant="contained"
+                      css={css`background-color: darkgreen;`}
                     >
                       Soumettre 
                     </Button>
@@ -307,24 +307,20 @@ const RapidexoPage = ({ data })=> {
                 sx={{ml: 2}}
                 css={css`color: darkgreen;`}
                 startIcon={<NavigateBeforeIcon />}
-              > 
-                Précédent 
-              </Button>
+              /> 
               <Typography 
                 variant="body1" 
-                sx={{ml: 3}}
+                sx={{ml: 2}}
               >
-                Exercice numéro {numState}: {listeRefs[numState]}
+                Ex. num. {numState}: {listeRefs[numState]}
               </Typography>
               <Button 
                 onClick={suiv}
                 variant="outlined" 
-                sx={{mr: 2}}
+                sx={{mr: 2, ml: 2}}
                 css={css`color: darkgreen;`}
                 endIcon={<NavigateNextIcon />}
-              >
-                Suivant
-              </Button>
+              />
             </Toolbar>
             <LatexBlock latex={latexState}/>
             <Container 
@@ -374,7 +370,6 @@ const RapidexoPage = ({ data })=> {
       
   return (
     <Layout>
-      <LayoutVues>
         <Container maxWidth="md" sx={{mt: 3}}>
         <TitreVue>
           Vue de l'outil "Rapidexos"
@@ -388,7 +383,6 @@ const RapidexoPage = ({ data })=> {
           CompilIndicator à placer
         </div>
         </Container>
-      </LayoutVues>
     </Layout> 
   )
 }

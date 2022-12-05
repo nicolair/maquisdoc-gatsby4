@@ -3,14 +3,11 @@ import { navigate , Link} from "gatsby"
 import { css } from "@emotion/react"
 
 import Layout from "../components/layout"
-import LayoutVues from "../components/layoutvues"
 import TitreVue from "../components/titrevue"
 
 import Container from "@mui/material/Container"
-import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
-import Stack from "@mui/material/Stack"
 import Paper from "@mui/material/Paper"
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -21,7 +18,6 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 import IconeVueDePres from "/src/components/icones/iconevuedepres";
-import IconeDownloadPdf from "/src/components/icones/iconedownloadpdf";
 
 const SemainePage = ({ data, pageContext }) => {
   const { previous, next} = pageContext ; 
@@ -244,7 +240,6 @@ const SemainePage = ({ data, pageContext }) => {
   
   return (
     <Layout>
-      <LayoutVues>
         <Container maxWidth="md" sx={{mt: 3, mb:3}}>
           <TitreVue
             nomnoeud={pageContext.nom}
@@ -253,7 +248,7 @@ const SemainePage = ({ data, pageContext }) => {
             Une année en mpsi B :
           </TitreVue>
           <Grid container>
-            <Grid xs={4}>
+            <Grid xs={6}>
               <Button 
                 onClick={()=>{navigate(previous.nom.replace('semaine ','/semaine_') )}} 
                 variant="outlined" 
@@ -264,25 +259,7 @@ const SemainePage = ({ data, pageContext }) => {
                 {previous.nom}
               </Button> 
             </Grid>
-            <Grid xs={4}>
-              <Stack direction="row" 
-                     spacing={1}
-                     alignItems="center"
-              >
-                <Typography variant="body1">
-                  lien vers pdf 
-                </Typography>
-                <a
-                    css={css`color: darkgreen;`}
-                    href = {semaine.documents[0].url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                >
-                   <IconeDownloadPdf />
-                </a>
-              </Stack>
-            </Grid>
-            <Grid xs={4}>
+            <Grid xs={6}>
               <Button 
                 onClick={()=>{navigate(next.nom.replace('semaine ','/semaine_') )}} 
                 variant="outlined" 
@@ -301,10 +278,9 @@ const SemainePage = ({ data, pageContext }) => {
               data={semaine.documents[0].url}
               type="application/pdf"
               width="99%"
-              height="300px"
               css={css`border-style: none`}
             >
-              le navigateur ne permet pas d'afficher un pdf 
+              le pdf manque ou le navigateur ne permet pas de l'afficher 
             </object>
           </Paper>
         </Container>
@@ -324,7 +300,6 @@ const SemainePage = ({ data, pageContext }) => {
             </Grid>
           </Grid>
         </Container>
-      </LayoutVues>
     </Layout>
   )
 }

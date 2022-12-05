@@ -2,7 +2,6 @@ import React from "react"
 import { css } from "@emotion/react"
 
 import Layout from "../components/layout"
-import LayoutVues from "../components/layoutvues"
 import TitreVue from "../components/titrevue"
 
 import Container from "@mui/material/Container"
@@ -117,7 +116,6 @@ const ProblemePage = ({ data, pageContext}) => {
   
   return (
       <Layout>
-        <LayoutVues>
           <Container maxWidth="md" sx={{mt: 3, mb:3}}>
             <TitreVue 
               nomnoeud={probleme.titre} 
@@ -138,7 +136,7 @@ const ProblemePage = ({ data, pageContext}) => {
                 height="300px"
                 css={css`border-style: none`}
               >
-                le navigateur ne permet pas d'afficher un pdf 
+                le pdf manque ou le navigateur ne permet pas de l'afficher 
               </object>
             </Paper>
           </Container>
@@ -152,7 +150,6 @@ const ProblemePage = ({ data, pageContext}) => {
               </Grid>
             </Grid>
           </Container>
-        </LayoutVues>
       </Layout>
     )
 }

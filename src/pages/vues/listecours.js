@@ -3,7 +3,6 @@ import { css } from "@emotion/react"
 import { graphql , Link} from "gatsby"
 
 import Layout from "../../components/layout"
-import LayoutVues from "../../components/layoutvues"
 
 import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography"
@@ -31,7 +30,6 @@ export default function ListeCoursPage({ data }){
 
   return (
     <Layout>
-      <LayoutVues>
         <Container maxWidth="md" sx={{mt: 3}}>
           <Typography component="h3" variant="h5">
             Liste des {data.maquis.documents.length} documents de cours 
@@ -44,7 +42,7 @@ export default function ListeCoursPage({ data }){
           </Link>
           <Container maxWidth="md" sx={{ mb: 2 }}>
             <TableContainer >
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
                     <TableCell>
@@ -104,7 +102,6 @@ export default function ListeCoursPage({ data }){
             />
           </Container>
         </Container>
-      </LayoutVues>
     </Layout>
   )
 }

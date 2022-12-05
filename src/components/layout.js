@@ -1,8 +1,16 @@
-import React from "react"
-import { useStaticQuery, Link, graphql } from "gatsby"
-import {Box, Typography} from "@mui/material"
+import React from "react";
+import { css } from "@emotion/react";
+import { useStaticQuery, Link, graphql } from "gatsby";
+
+import {Box, Typography} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
-import { css } from "@emotion/react"
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+
 import { rhythm } from "../utils/typography"
 import Footer from "./footer"
 
@@ -18,9 +26,172 @@ export default function Layout({ children }) {
             }
           }
         }
+        allMenuVuesCsv {
+          edges {
+            node {
+              code
+              page
+              texte
+            }
+          }
+        }
+        allMarkdownRemark(
+          filter: {frontmatter: {theme: {eq: "développement"}}},
+          sort: {fields: frontmatter___rang, order: ASC}){
+          edges {
+            node {
+              id
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+              }
+            }
+          }
+        }
       }
     `
   )
+  
+  const MenuVues = () => {
+    const [anchorElV, setAnchorElV] = React.useState(null);
+    const openV = Boolean(anchorElV);
+    const handleClickV = (event) => {
+      setAnchorElV(event.currentTarget);
+    };
+    const handleCloseV = () => {
+      setAnchorElV(null);
+    };
+    return (
+      <Toolbar>
+       <Typography 
+         variant="h5" 
+         component="h2"
+         css={css`color: darkgreen;
+                  display: inline-block;
+                  margin: 0 auto;
+              `}
+       >
+         Vues
+      </Typography>
+        <IconButton
+           size="medium"
+           edge="end"
+           color="inherit"
+           aria-label="menu"
+           sx={{ mr: 2 }}
+           id="basic-buttonV"
+           aria-controls={openV ? 'basic-menuV' : undefined}
+           aria-haspopup="true"
+           aria-expanded={openV ? 'true' : undefined}
+           onClick={handleClickV}
+        >       
+          <MenuIcon />
+        </IconButton>
+        <Menu
+            id="basic-menuV"
+            anchorEl={anchorElV}
+            open={openV}
+            onClose={handleCloseV}
+            MenuListProps={{ 'aria-labelledby': 'basic-buttonV',}}
+        >
+          {data.allMenuVuesCsv.edges.map( ({node}) => (
+            <MenuItem>
+              <Link
+                css={css`
+                       color: darkgreen;
+                       text-decoration: none;
+                     `}
+                to={node.page}
+              >
+                <Typography component="h4" variant="h7">
+                  {node.texte}
+                </Typography>
+              </Link>
+            </MenuItem>))            
+          }
+        </Menu>
+      </Toolbar>
+    )
+  };
+  
+  const MenuDev = () => {
+    const [anchorElD, setAnchorElD] = React.useState(null);
+    const openD = Boolean(anchorElD);
+    const handleClickD = (event) => {
+      setAnchorElD(event.currentTarget);
+    };
+    const handleCloseD = () => {
+      setAnchorElD(null);
+    };
+
+    return (
+     <Toolbar>
+       <Typography 
+         variant="h5" 
+         component="h2"
+         css={css`color: darkgreen;
+                  display: inline-block;
+                  margin: 0 auto;
+              `}
+       >
+         Développement
+       </Typography>
+        <IconButton
+           size="medium"
+           edge="end"
+           color="inherit"
+           aria-label="menu"
+           sx={{ mr: 2 }}
+           id="basic-buttonD"
+           aria-controls={openD ? 'basic-menuD' : undefined}
+           aria-haspopup="true"
+           aria-expanded={openD ? 'true' : undefined}
+           onClick={handleClickD}
+        >       
+          <MenuIcon />
+        </IconButton>
+        <Menu
+            id="basic-menuD"
+            anchorEl={anchorElD}
+            open={openD}
+            onClose={handleCloseD}
+            MenuListProps={{ 'aria-labelledby': 'basic-buttonD',}}
+        >
+          <MenuItem>
+            <Link
+                    css={css`
+                      color: darkgreen;
+                      text-decoration: none;
+                      `}
+                    to={"/developpement/journal"}
+            >
+              <Typography component="h4" variant="h7">
+                Journal
+              </Typography>
+            </Link>
+          </MenuItem>
+          {data.allMarkdownRemark.edges.map( ({node}) => (
+            <MenuItem>
+                  <Link
+                    css={css`
+                      color: darkgreen;
+                      text-decoration: none;
+                      `}
+                    to={node.fields.slug}
+                  >
+                    <Typography component="h4" variant="h7">
+                      {node.frontmatter.title}
+                    </Typography>
+                  </Link>
+            </MenuItem>
+          ))}
+        </Menu>
+     </Toolbar>
+    )
+  };
+  
   return (
     <div>
       <Box
@@ -30,7 +201,7 @@ export default function Layout({ children }) {
         paddingX={{ xs: 2, sm: 5, lg: 4 }}
       >
         <Grid container spacing={1}>
-            <Grid xs={5}>
+            <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
                   <Link to={`/`}>
                     <Typography variant="h3" component="h1"
                       css={css`
@@ -44,39 +215,18 @@ export default function Layout({ children }) {
                     </Typography>
                   </Link>
             </Grid>
-            <Grid xs={2}>
-              <Link  to= "/vues">
-                <Typography variant="h5" component="h2"
-                  css={css`
-                      color: darkgreen;
-                      display: inline-block;
-                      margin: 0 auto;
-                      padding: ${rhythm(2)};
-                      padding-top: ${rhythm(1.5)};
-                      `}
-                >
-                  Vues
-                </Typography>
-              </Link>
-            </Grid>
-            <Grid xs={5}>
-              <Link to= "/developpement">
-                <Typography variant="h5" component="h2"
-                  css={css`
-                      color: darkgreen;
-                      display: inline-block;
-                      margin: 0 auto;
-                      padding: ${rhythm(2)};
-                      padding-top: ${rhythm(1.5)};
-                      `}
-                >  
-                  Développement
-                </Typography>
-              </Link>
-            </Grid>
         </Grid>
       </Box>
-        {children}
+      <Grid container spacing={1}>
+         <Grid xs={5}>
+              <MenuVues/>
+         </Grid>
+         <Grid xs={7}>
+              <MenuDev/>
+         </Grid>
+      </Grid>
+      <Divider />
+      {children}
       <Footer/>
     </div>
   )

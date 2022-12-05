@@ -4,7 +4,6 @@ import { Link, graphql } from "gatsby"
 import { rhythm } from "../../utils/typography"
 
 import Layout from "../../components/layout"
-import LayoutDvlpt from "../../components/layoutdvlpt"
 
 import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography"
@@ -12,7 +11,6 @@ import Typography from "@mui/material/Typography"
 export default function Devlopmt({ data }) {
   return (
     <Layout>
-      <LayoutDvlpt>
           <Container maxWidth="md" sx={{mt: 3}}>
             <Typography component="h3" variant="h5">
               Journal : {data.allMarkdownRemark.totalCount} articles
@@ -55,7 +53,6 @@ export default function Devlopmt({ data }) {
               </div>
             ))}
           </Container>
-      </LayoutDvlpt>
     </Layout> 
   )
 }

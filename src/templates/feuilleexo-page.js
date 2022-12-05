@@ -2,17 +2,16 @@ import React, {useState} from "react"
 import { Link } from "gatsby"
 import { css } from "@emotion/react"
 
-import Layout from "../components/layout"
-import LayoutVues from "../components/layoutvues"
-import TitreVue from "../components/titrevue"
+import Layout from "../components/layout";
+import TitreVue from "../components/titrevue";
 
-import Container from "@mui/material/Container"
-import Typography from "@mui/material/Typography"
-import Stack from "@mui/material/Stack"
-import Paper from "@mui/material/Paper"
-import Toolbar from "@mui/material/Toolbar"
-import Button from "@mui/material/Button"
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import Tooltip from '@mui/material/Tooltip';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import IconeVueDePres from "/src/components/icones/iconevuedepres";
 import IconeDownloadPdf from "/src/components/icones/iconedownloadpdf";
@@ -41,15 +40,19 @@ const FeuilleExoPage = ({ data, pageContext}) => {
     
     return (
         <Layout>
-          <LayoutVues>
             <Container maxWidth="md" sx={{mt: 3, mb:3}}>
               <TitreVue
                 nomnoeud={feuilleexo.titre}> 
-                Vue de la feuille d'exercices sur le thème :  
+                Vue de la feuille d'exercices   
               </TitreVue>
+              <Typography variant="body2" sx={{mr: 3}}>
+                      ({nbexos} exercices sur ce thème)
+              </Typography>
+
               <Stack direction="row" 
                      spacing={1}
                      alignItems="center"
+                     sx={{mt: 2}}
               >
                 <Typography variant="body1">
                   lien vers pdf 
@@ -71,39 +74,33 @@ const FeuilleExoPage = ({ data, pageContext}) => {
                   <IconeVueDePres />
                 </Link>
               </Stack>
-              <Container maxWidth="md" sx={{mt: 3, mb:3}}>
-                <Toolbar>
-                    <Typography variant="body1" sx={{mr: 3}}>
-                      {nbexos} exercices sur ce thème
-                    </Typography>
-                    <Typography>
-                      Exercice courant 
+              <Container  sx={{mt: 3, mb:3}}>
+                  <Grid container spacing={1} >
+                    <Grid xs={2} display="flex" justifyContent="center" alignItem="center">
+                      <Button onClick={prec} 
+                              variant="outlined" 
+                              css={css`color: darkgreen;`}
+                              startIcon={<NavigateBeforeIcon />}
+                      />
+                    </Grid>
+                    <Grid xs={8} display="flex" justifyContent="center" alignItem="center">
                       <Tooltip title="nom du fichier de base">
-                        <span> {exosvoisins[indexexoState].docTitre} </span>
+                          <span> {exosvoisins[indexexoState].docTitre} </span>
                       </Tooltip>
-                    </Typography>
-                    <Link css={css`color: darkgreen;`}
-                          to={"/document_" + exosvoisins[indexexoState].docId}
-                    >
-                      <IconeVueDePres />
-                    </Link>
-                    <Button onClick={prec} 
-                            variant="outlined" 
-                            sx={{ml: 3}}
-                            css={css`color: darkgreen;`}
-                            startIcon={<NavigateBeforeIcon />}
-                    >
-                      Précédent 
-                    </Button> 
-                    <Button onClick={suiv}
-                            variant="outlined" 
-                            sx={{ml: 3}}
-                            css={css`color: darkgreen;`}
-                            endIcon={<NavigateNextIcon />}
-                    >
-                      Suivant 
-                    </Button> 
-                </Toolbar>              
+                      <Link css={css`color: darkgreen;`}
+                            to={"/document_" + exosvoisins[indexexoState].docId}
+                      >
+                        <IconeVueDePres />
+                      </Link>
+                    </Grid>
+                    <Grid xs={2} display="flex" justifyContent="center" alignItem="center">
+                      <Button onClick={suiv}
+                              variant="outlined" 
+                              css={css`color: darkgreen;`}
+                              endIcon={<NavigateNextIcon />}
+                      />
+                    </Grid>
+                  </Grid>
                 <Paper elevation={2} sx={{mt: 1}}>
                   <iframe 
                     src={exosvoisins[indexexoState].docUrl} 
@@ -114,7 +111,6 @@ const FeuilleExoPage = ({ data, pageContext}) => {
                 </Paper>
               </Container>
             </Container>
-          </LayoutVues>
         </Layout>
     )
 }

@@ -1,6 +1,11 @@
-import React from "react"
-import { css } from "@emotion/react"
-import { Link } from "gatsby"
+import React from "react";
+import { css } from "@emotion/react";
+import { Link } from "gatsby";
+
+import {useLazyQuery, gql } from "@apollo/client";
+
+import Layout from "../../components/layout";
+import TitreVue from "../../components/titrevue";
 
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
@@ -17,11 +22,6 @@ import Button from '@mui/material/Button';
 
 import IconeVueDePres from "/src/components/icones/iconevuedepres";
 import IconeDownloadPdf from "/src/components/icones/iconedownloadpdf";
-
-import Layout from "../../components/layout"
-import LayoutVues from "../../components/layoutvues"
-
-import {useLazyQuery, gql } from "@apollo/client"
 
 const GET_PBS_QUERY = gql`
   query getPbs($mot : String){
@@ -46,17 +46,17 @@ export default function RecherchePage({ data }) {
   
   return (
     <Layout>
-      <LayoutVues>
         <Container maxWidth="md" sx={{mt: 3}}>
-          <Typography component="h3" variant="h5">
-            Recherche dans les problèmes
-          </Typography> {loading}
+          <TitreVue>
+            Vue de recherche dans les problèmes
+          </TitreVue> {loading}
           <Grid 
             container
             mt={1}
             spacing={2}
             justifyContent="center"
-            alignItems="center">
+            alignItems="center"
+          >
             <Grid item>
               <Tooltip title="utiliser * comme wildcard">
                 <TextField variant="outlined" 
@@ -76,9 +76,9 @@ export default function RecherchePage({ data }) {
           </Grid>
           <Container maxWidth="md" sx={{ mb: 2 }}>
             <TableContainer >
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <Table  aria-label="simple table">
                 <TableHead >
-                { (pbsData) && (pbsData.searchpbs.length>0) && (
+                  { (pbsData) && (pbsData.searchpbs.length>0) && (
                     <TableRow >
                       <TableCell>
                         <Typography variant="h6">
@@ -89,7 +89,7 @@ export default function RecherchePage({ data }) {
                       <TableCell> maquis </TableCell>
                     </TableRow >)
                   }
-                  </TableHead>
+                </TableHead>
                 <TableBody typography="body1">
                   { (pbsData) && pbsData.searchpbs.map(({titre,_id, description,url},index)=>(
                     <TableRow key={index}>
@@ -125,7 +125,6 @@ export default function RecherchePage({ data }) {
             </TableContainer >
           </Container>
         </Container>
-      </LayoutVues>
     </Layout>
   )
 }

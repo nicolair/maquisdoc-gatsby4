@@ -14,7 +14,6 @@ import TablePagination from '@mui/material/TablePagination';
 import Tooltip from '@mui/material/Tooltip';
 
 import Layout from "../../components/layout"
-import LayoutVues from "../../components/layoutvues"
 import TitreVue from "../../components/titrevue"
 import IconeVueDePres from "/src/components/icones/iconevuedepres";
 import IconeDownloadPdf from "/src/components/icones/iconedownloadpdf";
@@ -32,10 +31,9 @@ export default function ProblemesPage({ data }){
 
   return (
     <Layout>
-      <LayoutVues>
         <Container maxWidth="md" sx={{mt: 3}}>
           <TitreVue>
-            Liste des {data.maquis.problemedocuments.length} problèmes
+            Vue des {data.maquis.documents.length} problèmes en liste
           </TitreVue>
           <Link
             css={css`color: darkgreen;`}
@@ -45,7 +43,7 @@ export default function ProblemesPage({ data }){
           </Link>
           <Container maxWidth="md" sx={{ mb: 2 }}>
               <TableContainer >
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table  aria-label="simple table">
                   <TableHead >
                     <TableRow>
                       <TableCell><Typography variant="h6"> 
@@ -56,7 +54,7 @@ export default function ProblemesPage({ data }){
                     </TableRow>
                   </TableHead>
                   <TableBody typography="body1">
-                    {data.maquis.problemedocuments
+                    {data.maquis.documents
                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map(({_id,titre, description,url,},index)=>(
                       <TableRow key={index}>
@@ -95,7 +93,7 @@ export default function ProblemesPage({ data }){
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
                 component="div"
-                count={data.maquis.problemedocuments.length}
+                count={data.maquis.documents.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
@@ -103,11 +101,23 @@ export default function ProblemesPage({ data }){
               />
           </Container>
         </Container>
-      </LayoutVues>
     </Layout>
   )
 }
 
+export const query = graphql`
+  query {
+    maquis {
+      documents(where: {typeDoc: "problème"}, options: {sort: {titre: ASC}}) {
+        _id
+        titre
+        description
+        url
+      }
+    }
+  }
+`
+/*
 export const query = graphql`
   query {
     maquis {
@@ -120,3 +130,4 @@ export const query = graphql`
     }
   }
 `
+*/

@@ -3,7 +3,6 @@ import { Link } from "gatsby"
 import { css } from "@emotion/react"
 
 import Layout from "../components/layout"
-import LayoutVues from "../components/layoutvues"
 import TitreVue from "../components/titrevue"
 
 import IconeVueDePres from "/src/components/icones/iconevuedepres";
@@ -121,7 +120,6 @@ const CoursPage = ({ data, pageContext}) => {
 
   return (
     <Layout>
-      <LayoutVues>
         <Container maxWidth="md" sx={{mt: 3, mb:3}}>
           <TitreVue nomnoeud={cours.titre}>
             Vue du document de cours 
@@ -150,7 +148,6 @@ const CoursPage = ({ data, pageContext}) => {
               </Grid>
           </Grid>
         </Container>
-      </LayoutVues>
     </Layout>
   )
 }

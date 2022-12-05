@@ -3,7 +3,6 @@ import { css } from "@emotion/react"
 import { graphql , Link} from "gatsby"
 
 import Layout from "../../components/layout"
-import LayoutVues from "../../components/layoutvues"
 import TitreVue from "../../components/titrevue"
 import IconeVueDePres from "/src/components/icones/iconevuedepres";
 
@@ -30,7 +29,6 @@ export default function ListeConceptPage({ data }){
 
   return (
     <Layout>
-      <LayoutVues>
         <Container maxWidth="md" sx={{mt: 3}}>
         <TitreVue> 
           Liste des {data.maquis.concepts.length} concepts 
@@ -42,7 +40,7 @@ export default function ListeConceptPage({ data }){
         </Link>
         <Container maxWidth="md" sx={{ mb: 2 }}>
           <TableContainer>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table  aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell> 
@@ -87,7 +85,6 @@ export default function ListeConceptPage({ data }){
             />
         </Container>
         </Container>
-      </LayoutVues>
     </Layout>
   )
 }
