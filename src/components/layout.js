@@ -136,7 +136,7 @@ export default function Layout({ children }) {
                   margin: 0 auto;
               `}
        >
-         Développement
+         Projet
        </Typography>
         <IconButton
            size="medium"
@@ -159,19 +159,6 @@ export default function Layout({ children }) {
             onClose={handleCloseD}
             MenuListProps={{ 'aria-labelledby': 'basic-buttonD',}}
         >
-          <MenuItem>
-            <Link
-                    css={css`
-                      color: darkgreen;
-                      text-decoration: none;
-                      `}
-                    to={"/developpement/journal"}
-            >
-              <Typography component="h4" variant="h7">
-                Journal
-              </Typography>
-            </Link>
-          </MenuItem>
           {data.allMarkdownRemark.edges.map( ({node}) => (
             <MenuItem>
                   <Link
@@ -187,6 +174,19 @@ export default function Layout({ children }) {
                   </Link>
             </MenuItem>
           ))}
+          <MenuItem>
+            <Link
+                    css={css`
+                      color: darkgreen;
+                      text-decoration: none;
+                      `}
+                    to={"/developpement/journal"}
+            >
+              <Typography component="h4" variant="h7">
+                Journal
+              </Typography>
+            </Link>
+          </MenuItem>
         </Menu>
      </Toolbar>
     )
@@ -218,10 +218,10 @@ export default function Layout({ children }) {
         </Grid>
       </Box>
       <Grid container spacing={1}>
-         <Grid xs={5}>
+         <Grid xs={4}>
               <MenuVues/>
          </Grid>
-         <Grid xs={7}>
+         <Grid xs={8}>
               <MenuDev/>
          </Grid>
       </Grid>

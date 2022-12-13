@@ -11,7 +11,7 @@ const IndexPage = () => {
           Maquisdoc est un projet d'organisation et de diffusion de documents pédagogiques.
         </p>
         <p>
-          Ce site présente des documents pédagogiques (lien Vues du menu) ainsi que leur organisation et les outils pour les diffuser (lien Développement).
+          Ce site présente des documents pédagogiques (menu "Vues" ) ainsi que leur organisation et les outils pour les diffuser (menu "Projet").
         </p>
         <p>
           Les documents proposés portent essentiellement sur les mathématiques en classe de mpsi (analogue en France à une première année d'université).<br/>
