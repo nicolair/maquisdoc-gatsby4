@@ -11,6 +11,8 @@ Le travail de rédaction se passe dans un dépôt. Chaque *auteur* est libre de 
 
 Pour mes dépôts, les sources sont en Latex, Asymptote ou Python et les fichiers sont écrits dans un dossier local sur mon ordinateur personnel. Pour faciliter le partage et assurer la sauvegarde, ce dossier local est aussi un dépôt Git. 
 
+Attention, le mot dépôt est ambigu. Ce qui est détaillé ici c'est le concept de dépôt au sens de maquisdoc. Le même mot est utilisé pour Git. La confusion est encore aggravée par le fait qu'un dépôt Git est associé à un dépôt maquisdoc.
+
 #### Liste des dépôts existants:
 * [exercices](https://github.com/nicolair/math-exos)
 * [problèmes](https://github.com/nicolair/math-pbs)
