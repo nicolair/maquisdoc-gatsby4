@@ -20,13 +20,18 @@ La maintenance d'un dépôt est lançée par un script spécifique qui importe u
 
 #### Exemple avec *math-pbs*
 La maintenance est lancée par la commande
-    `python3 maintenir_mathPbs`
+
+    python3 maintenir_mathPbs
+
 dans le dossier contenant le script.
 
-Cette commande importe les modules `init_mathPbs` et `depot` puis instancie un objet `Depot`.
+Cette commande importe les modules `init_mathPbs` et `depot` puis instancie un objet `Depot`. D'autres modules sont importés lors de ce processus.
 
+  
+<div style="text-align: center;">
+  Modules communs
+</div>
 
-Modules communs
 | nom           | rôle             | importe |
 | ------------- | ---------------- | --------- |
 | `depot`       | module principal | `execlocal`, `espace` |
@@ -34,13 +39,22 @@ Modules communs
 | `scantex`     | outils d'analyse de fichiers .tex |     |
 | `espace`      | definit la classe `Espace` |     |
 
-Modules spécifiques
+
+   
+<div style="text-align: center;">
+  Modules spécifiques
+</div>
+
 | nom            | rôle                       |
 | -------------- | -------------------------- |
 | `init_mathPbs` | initialisation, manifeste |
 | `exl_mathPbs`  | scripts de manipulation de fichiers locaux |
 
-Modules externes
+   
+<div style="text-align: center;">
+  Modules externes
+</div>
+
 | nom          | rôle  |
 | -----------  | ----- |
 | `os`         |       |
@@ -52,14 +66,18 @@ Modules externes
 | `boto3`      | API espace |
 | `mimetypes`  |       |
 
-Classes
+
+Les modules définissent diverses classes; c'est l'instanciation de ces classes qui effectue les différents aspects de la maintenance.
+
+<div style="text-align: center;">
+  Classes
+</div>
+
 | nom         | module      | rôle |
 | ----------- | ----------- | ----- |
 | `Depot`     | `depot`     | instancie `Execlocal` |
 | `Execlocal` | `execlocal` |     |
 | `Espace`    | `espace`    | interface avec l'espace DO |
-
-Les modules définissent diverses classes; c'est l'instanciation de ces classes qui effectue les différents aspects de la maintenance.
 
 
 
