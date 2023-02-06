@@ -12,7 +12,7 @@ Le rôle de la maintenance est de :
 * pousser les modifications locales vers le dépôt en ligne (un dépôt maquisdoc est un dépôt GitHub).
 * compiler localement les images qui doivent l'être.
 * pousser vers les espaces de diffusion les images nouvelles ou modifiées.
-* mettre à jour la base de données.
+* mettre à jour la base de données en graphe.
 
 Elle s'effectue à l'aide de scripts Python locaux rassemblés dans le dépot GitHub (repository) [mtn-dpt](https://github.com/nicolair/mtn_dpt).
 
