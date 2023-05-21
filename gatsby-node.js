@@ -77,11 +77,6 @@ exports.createPages = async ({ graphql, actions }) => {
             litteral
             description
           }
-          conceptsINDEXE {
-            _id
-            litteral
-            description
-          }
         }
         exercicedocuments{
           _id
