@@ -20,7 +20,7 @@ import Paper from "@mui/material/Paper"
 const CoursPage = ({ data, pageContext}) => {
   const cours = pageContext.cours
   const concepts = cours.concepts
-  const index = cours.conceptsINDEXE
+  //const index = cours.conceptsINDEXE
 
   const Menusource = () => {
     const [anchorElS, setAnchorElS] = React.useState(null);
@@ -101,7 +101,7 @@ const CoursPage = ({ data, pageContext}) => {
             onClose={handleCloseI}
             MenuListProps={{ 'aria-labelledby': 'basic-buttonI',}}
         >
-          {index.map(({litteral,_id},index)=>(
+          {concepts.map(({litteral,_id},index)=>(
             <MenuItem>
                <Typography variant="body2" mr={1}>
                   {litteral}
