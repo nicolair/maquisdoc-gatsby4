@@ -20,6 +20,7 @@ import Paper from "@mui/material/Paper"
 const CoursPage = ({ data, pageContext}) => {
   const cours = pageContext.cours
   const concepts = cours.concepts
+  const index = cours.conceptsINDEXE
 
   const Menusource = () => {
     const [anchorElS, setAnchorElS] = React.useState(null);
@@ -62,6 +63,57 @@ const CoursPage = ({ data, pageContext}) => {
               Fichier LateX
             </a>
           </MenuItem>
+        </Menu>
+      </Toolbar>
+    )
+  };
+
+  const Menuindexe = () => {
+    const [anchorElI, setAnchorElI] = React.useState(null);
+    const openI = Boolean(anchorElI);
+    const handleClickI = (event) => {
+      setAnchorElI(event.currentTarget);
+    };
+    const handleCloseI = () => {
+      setAnchorElI(null);
+    };
+    return (
+      <Toolbar>
+         Concepts indexés
+         <IconButton
+            size="medium"
+            edge="end"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            id="basic-buttonI"
+            aria-controls={openI ? 'basic-menuI' : undefined}
+            aria-haspopup="true"
+            aria-expanded={openI ? 'true' : undefined}
+            onClick={handleClickI}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Menu
+            id="basic-menuI"
+            anchorEl={anchorElI}
+            open={openI}
+            onClose={handleCloseI}
+            MenuListProps={{ 'aria-labelledby': 'basic-buttonI',}}
+        >
+          {index.map(({litteral,_id},index)=>(
+            <MenuItem>
+               <Typography variant="body2" mr={1}>
+                  {litteral}
+               </Typography>
+               <Link
+                  css={css`color: darkgreen;`}
+                  to={"/concept_" + _id}
+               >
+                 <IconeVueDePres />
+               </Link>
+            </MenuItem>
+          ))}
         </Menu>
       </Toolbar>
     )
@@ -140,10 +192,13 @@ const CoursPage = ({ data, pageContext}) => {
         </Container>
         <Container maxWidth="md" sx={{mt: 3, mb:3}}>
           <Grid container spacing={2} >
-              <Grid xs={6}>
+              <Grid xs={4}>
                 <Menusource />
               </Grid>
-              <Grid xs={6}>
+              <Grid xs={4}>
+                <Menuindexe />
+              </Grid>
+              <Grid xs={4}>
                 <Menuconcept />
               </Grid>
           </Grid>
