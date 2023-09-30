@@ -8,7 +8,7 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-emotion",
-    //"gatsby-plugin-mdx", 
+    "gatsby-plugin-sharp",
     "gatsby-theme-material-ui",
     {
       resolve: 'gatsby-source-filesystem',
@@ -18,7 +18,19 @@ module.exports = {
         },
       __key: "pages"
     },
-    "gatsby-transformer-remark",
+    {
+      resolve: "gatsby-transformer-remark",
+      options:{
+        plugins: [
+        {
+          resolve:`gatsby-remark-images`,
+          options:{
+            maxWidth: 600
+          }
+        }
+        ]
+      }
+    },
     `gatsby-transformer-csv`,
     {
       resolve: "gatsby-source-graphql",

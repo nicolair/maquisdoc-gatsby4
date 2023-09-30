@@ -59,8 +59,9 @@ export default function Devlopmt({ data }) {
 
 export const query = graphql`
   query {
-    allMarkdownRemark(filter: {frontmatter: {theme: {eq: "journal"}}}, 
-                      sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(filter: {frontmatter: {theme: {eq: "journal"}}}
+                      sort: {frontmatter: {date: DESC}}
+    ) {
       totalCount
       edges {
         node {

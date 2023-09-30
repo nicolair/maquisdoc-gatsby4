@@ -36,8 +36,9 @@ export default function Layout({ children }) {
           }
         }
         allMarkdownRemark(
-          filter: {frontmatter: {theme: {eq: "développement"}}},
-          sort: {fields: frontmatter___rang, order: ASC}){
+          filter: {frontmatter: {theme: {eq: "développement"}}}
+          sort: {frontmatter: {rang: ASC}}
+        ){
           edges {
             node {
               id
