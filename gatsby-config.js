@@ -9,7 +9,7 @@ module.exports = {
   plugins: [
     "gatsby-plugin-emotion",
     "gatsby-plugin-sharp",
-    "gatsby-theme-material-ui",
+    //"gatsby-theme-material-ui",
     {
       resolve: 'gatsby-source-filesystem',
       options: {
