@@ -5,115 +5,118 @@ rang: 3
 ---
 ### Base de données en graphe
 
-Les *concepts* ou les *événements* sont d'autres types de noeuds.  
+La base de données en graphe maquisdoc est implémentée avec neo4j. Elle est constituée de *noeuds* et de *relations* entre ces noeuds.
 
-Tous les labels numériques ont été remplacés par des chaînes de caractères. La base est sauvegardée comme v1-0.dump
+Chaque noeud possède un unique *label* et plusieurs propriétés.  
+Chaque relation possède 
+  - un unique noeud de départ
+  - un unique noeud d'arrivée
+  - un unique nom
+  - éventuellement plusieurs propriétés
 
-Il existe aussi plusieurs types d'arêtes comme *DOCUMENTE* ou *REQUIERT*. Par exemple "un noeud document *DOCUMENTE* un noeud concept" ou "un concept *REQUIERT* un autre concept".
-Le schéma de la base est précisé par les tableaux suivants.
+Le type d'un noeud est caractérisé par son label, le type d'une relation est caractérisé par son nom.
 
-Un seul label par noeud.
+Les deux tableaux suivants présentent les différents types de noeuds et de relations.
 
-
-|Labels des noeuds | Description |
-|-----             | -----       |
-| `Concept`          | un concept dans le contexte d'une discipline |
+|Labels des noeuds | description |
+|----------------- | ------------|
+| `Concept`          | concept (dans le contexte d'une discipline) dont le type est caractérisé par la valeur de la propriété `typeConcept` |
 | `Document`         | document pédagogique dont le type est caractérisé par la valeur de la propriété `typeDoc` |
 | `Evenement`        | événement pédagogique dont le type est caractérisé par la valeur de la propriété `typeEvt` |
-| `SiteWeb`          | sites scientifiques             |
+| `SiteWeb`          | site scientifique  |
 
+<br/>
 
-Valeurs de `typeDoc` : cours, liste exercices, liste rapidexo, exercice, livre, livre problèmes, problème, programme, sujet dossier ADS, article scientifique.
-
-Valeurs de `typeEvt` : question de cours , DM, DS
+| Noms des relations | description/exemple |
+|------------------- |---------------------|
+| `APPARAIT_DANS` | un concept `APPARAIT_DANS` un autre concept |
+| `CONTIENT` | un document `CONTIENT` un sous-document, un concept CONTIENT un sous-concept |
+| `DOCUMENTE` | un document `DOCUMENTE` un concept |
+| `EVALUE` | un événement ou certains documents (exercice, devoir) `EVALUE` un concept |
+| `INDEXE` | un document `INDEXE` un concept lorsque le concept figure dans l'index du document|
+| `INTERVIENT_DANS` | un concept `INTERVIENT_DANS` un document. Ce concept est une *clé* du document.|
+| `OUTIL_DE` | un concept de type *résultat* est un `OUTIL_DE` un autre concept.|
+| `PORTE_SUR` | un document `PORTE_SUR` un concept. |
+| `REQUIERT` | un document ou un concept `REQUIERT` un autre concept pour être compris ou maitrisé |
+| `REFERENCE` | un document `REFERENCE` un autre document au sens d'une référence bibliographique |
+| `SPECIALISE` | un concept `SPECIALISE` un autre concept c'est à dire qu'il en est un cas particulier ou un exemple |
+| `UTILISE` | un événement `UTILISE` un document comme support: un document de cours, un énoncé, ... |
 
 *****
-
-
-Propriétés des noeuds avec les labels des noeuds qui *peuvent* avoir chaque propriété.  
-</br>
+Le tableau suivant liste les propriétés des noeuds et, pour chaque, les types (labels) des noeuds qui peuvent avoir cette propriété.
 
 |Propriété | Description | Labels |
 |----------|------------ |--------|
-|`annéeEvt` |  | `Evenement` |
-|`date` | héritée, date de l'insertion du noeud | tous |
+|`annéeEvt` | année de l'évènement | `Evenement` |
+|`date` | date de l'insertion du noeud | tous |
 |`description`  | texte descriptif | tous |
 |`discipline` | mathématiques, informatique, ... | tous |
-|`ideltdoc` | héritée de maquisdoc | tous |
-|`litteral` | chaîne de caractère désignant le concept | `Concept` |
-|`nom` | obligatoire | `Evenement`, `SiteWeb` |
-|`titre` | obligatoire | `Document` |
-|`typeDoc` | type de document | `Document` |
-|`typeEvt` | type d'événement | `Evenement` |
-|`typeSiteWeb` | type de site | SiteWeb |
-|`url` | url du document (pdf) | `Document` |
+|`litteral` | chaîne de caractère caractérisant le concept | `Concept` obligatoire |
+|`nom` | nom de l'évènement | `Evenement`, `SiteWeb` obligatoire|
+|`titre` | titre ou nom du document | `Document` obligatoire|
+|`typeConcept` | type du concept | `Concept` obligatoire |
+|`typeDoc` | type du document | `Document` obligatoire |
+|`typeEvt` | obligatoire type de l'événement | `Evenement` |
+|`typeSiteWeb` | type du site | SiteWeb obligatoire |
+|`url` | url du document (pdf) | `Document` obligatoire |
 |`urlCorr` | url du corrigé (pdf)| `Document` |
 |`urlEnon` | url de l'énoncé (pdf) | `Document` |
 |`urlSrc` | url de la source (lateX, ...) | `Document` |
 |`urlSrcCorr` | url de la source du corrigé | `Document` |
 |`urlSrcEnon` | url de la source de l'énoncé | `Document` |
-|`urlSrcMaple` | url dela source Maple (héritée) | `Document` |
+|`urlSrcMaple` | url de la source Maple (héritée) | `Document` |
 
 ----
 
-Description des relations
+Les valeurs possibles des propriétés caractérisant les sous-types sont présentées ici
 
+| Propriété | Valeurs       |
+| --------- | ------------- |
+|`typeConcept`| thème feuille exercices (à supprimer), index Latex (à supprimer), objet mathématique, résultat mathématique, association d'objets mathématiques, discipline |
+|`typeDoc`  | cours, exercice, liste exercices, liste rapidexo, livre problèmes, problème, programme, sujet dossier ADS, livre, article scientifique|
+`typeEvt` | question de cours , DM, DS, semaine de colle |
 
-| Relation | description/exemple |
-|----------|-------------|
-| APPARAIT_DANS | un concept APPARAIT_DANS un autre concept |
-| CONTIENT | un document CONTIENT un sous-document, un concept CONTIENT un sous-concept |
-| DOCUMENTE | un document DOCUMENTE un concept |
-| INTERVIENT_DANS | un concept INTERVIENT_DANS un document. Ce concept est une *clé* du document.|
-| REQUIERT | un document ou un concept REQUIERT un autre concept pour être compris oumaitrisé |
-| REFERENCE | un document REFERENCE un autre document au sens d'une référence bibliographique |
-| SPECIALISE | un concept SPECIALISE un autre concept c'est à dire qu'il en est un cas particulier ouun exemple |
-| UTILISE | un événement UTILISE un document comme support: un document de cours, un énoncé, ... |
-| EVALUE | un événement ou certains documents (exercice, devoir) EVALUE un concept |
+------
 
-Les tableaux suivant indiquent les labels que doivent avoir les noeuds reliés par une relation d'un certain type.
+Le tableau suivant présente les combinaisons valides de labels de noeuds et de noms de relations.
 
-Si le label du premier noeud est `Document`: 
+| label début | nom relation | label fin |
+| ----------- | ------------ | --------- |
+| `Concept`   | `APPARAIT_DANS` | `Concept` |
+| `Document`   | `CONTIENT` | `Document` |
+| `Evenement`   | `CONTIENT` | `Evenement` |
+| `Document` | `DOCUMENTE` | `Concept` |
+| `Document` | `EVALUE` | `Concept` |
+| `Evenement` | `EVALUE` | `Concept` |
+| `Document` | `INDEXE` | `Concept` |
+| `Concept` | `INTERVIENT_DANS` |`Document` |
+| `Concept`   | `OUTIL_DE` | `Concept` |
+| `Concept`   | `PORTE_SUR` | `Concept` |
+| `Document` | `RÉFÉRENCE` | `Document` |
+| `Concept`   | `REQUIERT` | `Concept` |
+| `Concept`   | `SPECIALISE` | `Concept` |
+| `Evenement` | `UTILISE` | `Document` |
 
-    MATCH (e:Document)-[r]->(n) RETURN DISTINCT type(r),labels(n)
- 
-|	`type(r)`	| `labels(n)` |
-|-----------|----------|
-| `DOCUMENTE` |	 `Concept` |
-| `EVALUE` |	 `Concept` |
-| `CONTIENT` |	 `Document` |
-| `REFERENCE` |	 `Document` |
+Un concept peut apparaitre dans plusieurs autres. Par exemple, le concept *présentation axiomatique* `APPARAIT_DANS` *Polynômes* et *Axiomatique de R*.  
+La relation `REQUIERT` est plus forte que `APPARAIT_DANS`. Un concept c0 requiert un concept c1 lorsque c0 `APPARAIT_DANS` c1 et qu'une bonne maitrise de c0 est nécessaire pour aborder c1.  Par exemple, la maitrise du concept *présentation axiomatique* n'est pas nécessaire pour aborder le concept *polynômes* en revanche le concept *Espaces vectoriels (dimension finie)* `REQUIERT` celui de *Espaces vectoriels (sans dimension)*.
 
-----
+Un concept peut apparaitre ou être requis par plusieurs concepts. Lorsqu'un concept n'a de sens que dans le contexte d'un autre concept, on dira qu'il le `SPECIALISE`. Un concept ne peut être le début qu'une seule relation `SPECIALISE`, de plus les deux doivent avoir la même valeur pour la propriété `typeConcept` (par exemple *objet mathématique*).
 
-Si le label du premier noeud est `Concept`:
+Le début d'une relation `PORTE_SUR` doit être un concept de type *résultat mathématique* et la fin doit être un concept de type *objet mathématique*.
 
-    MATCH (e:Concept)-[r]->(n) RETURN DISTINCT type(r),labels(n)
-    
-|	`type(r)`	| `labels(n)`|
-|-----------|----------|
-| `APPARAIT_DANS` |	 `Concept` |
-| `SPECIALISE` |	 `Concept` |
-| `CONTIENT` |	 `Concept` |
-| `REQUIERT` |	 `Concept` |
-| `INTERVIENT_DANS` |	 `Document` |
+Un concept de type *résultat mathématique* est un `OUTIL_DE` un autre *résultat mathématique* lorsque le premier intervient dans la démonstration du second.
 
-----
+Un noeud de label `Evenement` est inscrit dans le temps et représente un travail proposé aux étudiants. Par exemple, un `Evenement` dont la valeur de `typeEvt` est *DS* `UTILISE` un `Document` dont la valeur de `typeDoc` est *problème*. Une semaine de colle est aussi un `Evenement` qui `CONTIENT` des sous événements donts la valeur de `typeEvt` est *question* de cours. Il est aussi possible qu'un événement `EVALUE` un concept pour vérifier que ce concept est bien compris par les étudiants.
 
-Si le label du premier noeud est `Evenement`:
-    
-    MATCH (e:Événement)-[r]->(n) RETURN DISTINCT type(r),labels(n)
-
-|	`type(r)`	| `labels(n)` |
-|-----------|----------|
-| `EVALUE` | `Concept` |
-| `UTILISE` | `Document` |
-| `CONTIENT` | `Evenement` |
-
+Un `Document` `INDEXE` un `Concept` lorsque ce dernier est écrit dans la source comme un index Latex. Cette relation est initiée seulement par l'auteur au moment du travail sur le fichier source, elle existe au niveau des fichiers et pas seulement au niveau de la base de données.  
+La relation `Concept` `APPARAIT_DANS` `Document` a la même signification (en inversant début et fin) mais elle existe seulement au niveau de la base et non au niveau des fichiers.
 
 ----------------
 
-Des requêtes qui me semblent utiles dans ce contexte pour valider les couples (label, propriété)
+Des requêtes utiles pour valider les triplets (label, nom de relation, label)
+
+    MATCH (d)-[r]->(f)
+    RETURN DISTINCT labels(d) AS ld, type(r) AS nomR, labels(f) ORDER BY nomR, ld
     
     MATCH (n )
     WHERE exists(n.description)
@@ -129,5 +132,3 @@ Des requêtes qui me semblent utiles dans ce contexte pour valider les couples (
     RETURN DISTINCT props
 
     
-La vérification de la pertinence de la base avec ce schéma a conduit à des modifications. La première base cohérente avec ce schéma est sauvegardée en v1-1.dump
-
