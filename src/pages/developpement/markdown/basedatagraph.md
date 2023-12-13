@@ -14,17 +14,19 @@ Chaque relation possède
   - un unique nom
   - éventuellement plusieurs propriétés
 
-Le type d'un noeud est caractérisé par son label, le type d'une relation est caractérisé par son nom.
+Le type d'un noeud est caractérisé par son label, le type d'une relation est caractérisé par son nom. Attention, le *nom* d'une relation ne caractérise pas la relation elle même mais seulement son type.
 
 Les deux tableaux suivants présentent les différents types de noeuds et de relations.
 
-|Labels des noeuds | description |
-|----------------- | ------------|
-| `Concept`          | concept (dans le contexte d'une discipline) dont le type est caractérisé par la valeur de la propriété `typeConcept` |
-| `Document`         | document pédagogique dont le type est caractérisé par la valeur de la propriété `typeDoc` |
-| `Evenement`        | événement pédagogique dont le type est caractérisé par la valeur de la propriété `typeEvt` |
-| `SiteWeb`          | site scientifique  |
+|Labels des noeuds | description | propriété caractéristique |
+|----------------- | ------------| ------------------------- |
+| `Concept`          | concept (dans le contexte d'une discipline) dont le type est caractérisé par la valeur de la propriété `typeConcept` | (`typeConcept`, `litteral`)
+| `Document`         | document pédagogique dont le type est caractérisé par la valeur de la propriété `typeDoc` | (`typeDoc`, `titre`) |
+| `Evenement`        | événement pédagogique dont le type est caractérisé par la valeur de la propriété `typeEvt` |   (`typeEvt`, `nom`)|
+| `SiteWeb` | site scientifique  | (`typeSiteWeb`, `nom`) |
 
+Dans la base, chaque noeud est caractérisé par un unique identifiant informatique qui n'a pas de valeur sémantique. La dernière colonne permet de caractériser sémantiquement un unique noeud. Par exemple, il existe un unique noeud labellisé `Concept` dont la valeur de `litteral` est "nombre de Stirling" son identifiant informtique est 187.  
+Attention le `titre` d'un document désigne en fait plutôt le nom principal du fichier source que réellement le titre. Sa valeur sémantique est faible, c'est un point qu'il faudra améliorer à l'avenir.
 <br/>
 
 | Noms des relations | description/exemple |
@@ -113,22 +115,58 @@ La relation `Concept` `APPARAIT_DANS` `Document` a la même signification (en in
 
 ----------------
 
-Des requêtes utiles pour valider les triplets (label, nom de relation, label)
+#### Consistance
+
+Les paragraphes précédents présentent des règles que doit valider la base en graphe pour être consistante. Elles sont rassemblées ici avec des requêtes cypher permetant de les vérifier. Elles sont utilisées dans les $tests de consistance$ figurant dans les scripts de maintenance.
+
+Cette dernière partie, en construction, présente des requêtes cypher testant la validité des règles dans la base réelles. Elles doivent renvoyer `VRAI` lorsque la règle est vérifiée.
+
+*Le libellé d'un concept est un texte non vide*
+
+    MATCH (c:Concept)
+        WHERE c.litteral IS NULL OR c.litteral <> toStringOrNull(c.litteral)
+    RETURN count(c) = 0 AS bool
+
+
+*Un noeud document est caractérisé par son type et son titre*
+
+    MATCH (n1:Document),(n2:Document)
+        WHERE n1.typeDoc = n2.typeDoc AND n1.titre = n2.titre AND id(n1) < id(n2)
+    RETURN count(*) = 0 AS bool
+
+*Un noeud concept est caractérisé par son type et son libellé*
+
+    MATCH (n1:Concept),(n2:Concept)
+        WHERE n1.typeConcept = n2.typeConcept AND n1.litteral = n2.litteral AND id(n1) < id(n2)
+    RETURN count(*) = 0  AS bool
+
+*Un noeud événement est caractérisé par son type et son nom*
+
+    MATCH (n1:Evenement),(n2:Evenement)
+        WHERE n1.typeEvt = n2.typeEvt AND n1.nom = n2.nom AND id(n1) < id(n2)
+    RETURN count(*) = 0  AS bool
+    
+------------------------
+D'autres requêtes utiles.
+
+Pour valider les triplets (label, nom de relation, label): liste des types possibles de relations.
 
     MATCH (d)-[r]->(f)
     RETURN DISTINCT labels(d) AS ld, type(r) AS nomR, labels(f) ORDER BY nomR, ld
-    
+
+Liste les labels de noeuds qui ont une description
+
     MATCH (n )
     WHERE exists(n.description)
     WITH labels(n) as listlab
     UNWIND listlab as label
     RETURN DISTINCT label
-    
-    
+
+Liste des propriétés de noeuds qui ont des descriptions
+
     MATCH (n :Document)
     WHERE exists(n.description)
     WITH keys(n) as listprop
     UNWIND listprop as props
     RETURN DISTINCT props
 
-    
