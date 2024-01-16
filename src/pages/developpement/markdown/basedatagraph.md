@@ -117,9 +117,9 @@ La relation `Concept` `APPARAIT_DANS` `Document` a la même signification (en in
 
 #### Consistance
 
-Les paragraphes précédents présentent des règles que doit valider la base en graphe pour être consistante. Elles sont rassemblées ici avec des requêtes cypher permetant de les vérifier. Elles sont utilisées dans les $tests de consistance$ figurant dans les scripts de maintenance.
+Les paragraphes précédents présentent des règles que doit valider la base en graphe pour être consistante. Elles sont rassemblées ici avec des requêtes cypher permetant de les vérifier. Elles sont utilisées dans les *tests de consistance* figurant dans les scripts de maintenance.
 
-Cette dernière partie, en construction, présente des requêtes cypher testant la validité des règles dans la base réelles. Elles doivent renvoyer `VRAI` lorsque la règle est vérifiée.
+Cette dernière partie, en construction, présente des requêtes cypher testant la validité des règles dans la base réelle. Elles doivent renvoyer `VRAI` lorsque la règle est vérifiée.
 
 *Le libellé d'un concept est un texte non vide*
 
@@ -169,4 +169,12 @@ Liste des propriétés de noeuds qui ont des descriptions
     WITH keys(n) as listprop
     UNWIND listprop as props
     RETURN DISTINCT props
+    
+Un noeud peut-il être orphelin, c'est à dire sans aucune relation avec un autre noeud? Ce n'est pas clair. La requête suivant fournit la liste des orphelins.
+
+    MATCH (n)
+    OPTIONAL MATCH (n)-[r]-(s)
+    WITH n,r
+    WHERE r IS NULL
+    RETURN n
 

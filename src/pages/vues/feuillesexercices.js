@@ -111,23 +111,22 @@ export default function FeuillesExercices({ data }) {
 }
 
 export const query = graphql`
-  query{
+  query { 
     maquis {
-      documents(options: {sort: {titre: ASC}}, where: {typeDoc: "liste exercices"}) {
+      documents (where:{typeDoc:"liste exercices"}, options:{sort:{titre:ASC}}) {
         titre
         _id
-        conceptsEVAL {
-          _id
-          litteral
-        }
         typeDoc
-        description
         url
         urlSrc
         urlEnon
         urlCorr
         urlSrcEnon
         urlSrcCorr
+        conceptsEVAL {
+          _id
+          litteral
+        }
       }
     }
   }
