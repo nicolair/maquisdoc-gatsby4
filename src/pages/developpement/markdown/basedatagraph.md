@@ -25,8 +25,7 @@ Les deux tableaux suivants présentent les différents types de noeuds et de rel
 | `Evenement`        | événement pédagogique dont le type est caractérisé par la valeur de la propriété `typeEvt` |   (`typeEvt`, `nom`)|
 | `SiteWeb` | site scientifique  | (`typeSiteWeb`, `nom`) |
 
-Dans la base, chaque noeud est caractérisé par un unique identifiant informatique qui n'a pas de valeur sémantique. La dernière colonne permet de caractériser sémantiquement un unique noeud. Par exemple, il existe un unique noeud labellisé `Concept` dont la valeur de `litteral` est "nombre de Stirling" son identifiant informtique est 187.  
-Attention le `titre` d'un document désigne en fait plutôt le nom principal du fichier source que réellement le titre. Sa valeur sémantique est faible, c'est un point qu'il faudra améliorer à l'avenir.
+Dans la base, chaque noeud est caractérisé par un unique identifiant informatique qui n'a pas de valeur sémantique. La dernière colonne permet de caractériser sémantiquement un unique noeud. Par exemple, il existe un unique noeud labellisé `Concept` dont la valeur de `litteral` est "nombre de Stirling" son identifiant informatique est 187.  
 <br/>
 
 | Noms des relations | description/exemple |
@@ -117,7 +116,7 @@ La relation `Concept` `APPARAIT_DANS` `Document` a la même signification (en in
 
 #### Consistance
 
-Les paragraphes précédents indiquent des règles que doit valider la base en graphe pour être consistante. Elles sont rassemblées ici avec des requêtes cypher renvoyant un bolléen permettant de les vérifier. La règle est validée lorsque la requête renvoie `VRAI`. Elles sont utilisées dans les *tests de consistance* figurant dans les scripts de maintenance.
+Les paragraphes précédents indiquent des règles que doit valider la base en graphe pour être consistante. Elles sont rassemblées ici avec des requêtes cypher renvoyant un booléen permettant de les vérifier. La règle est validée lorsque la requête renvoie `VRAI`. Elles sont utilisées dans les *tests de consistance* figurant dans les scripts de maintenance.
 
 *Le libellé d'un concept est un texte non vide*
 
@@ -173,4 +172,33 @@ Liste des propriétés de noeuds qui ont des descriptions
     WITH keys(n) as listprop
     UNWIND listprop as props
     RETURN DISTINCT props
+    
+Un noeud peut-il être orphelin, c'est à dire sans aucune relation avec un autre noeud? Ce n'est pas clair. La requête suivante fournit la liste des orphelins.
 
+    MATCH (n)
+    OPTIONAL MATCH (n)-[r]-(s)
+    WITH n,r
+    WHERE r IS NULL
+    RETURN n
+    
+En principe, un document INDEXE un concept une seule fois (même s'il figure plusieurs fois dans l'index LateX). La requête suivante permet de repérer les doublons.
+
+    MATCH p = (d:Document) -[:INDEXE]->(c:Concept)
+    WITH d.titre as titr , c.litteral as litt, count(*) as n WHERE n > 1
+    RETURN titr, litt, n
+
+Pour repèrer les concepts orphelins:
+
+    MATCH (c: Concept)
+    OPTIONAL MATCH (c)-[r]-(s)
+    WITH c,r
+    WHERE r IS NULL
+    RETURN c
+
+Pour repérer les concepts en dehors de l'arborescence "SPECIALISE" et "APPARAIT_DANS"
+
+    MATCH (c: Concept)
+    OPTIONAL MATCH (c)-[r:SPECIALISE|APPARAIT_DANS]-(s)
+    WITH c,r
+    WHERE r IS NULL
+    RETURN c

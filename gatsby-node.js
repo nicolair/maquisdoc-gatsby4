@@ -155,7 +155,7 @@ exports.createPages = async ({ graphql, actions }) => {
   `)
   
   //console.log(result.data);
-
+  
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     nom_tpl = `dvlp-page.js`
     if ( node.frontmatter.theme === "journal" ) {
@@ -172,7 +172,7 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     })
   })
-  
+
   const problemes = result.data.maquis.problemedocuments
   problemes.forEach((probleme,index) => {
     ({titre,description,url,evenements,_id} = probleme)
@@ -256,7 +256,7 @@ exports.createPages = async ({ graphql, actions }) => {
       })
   })
 
-/*  
+/*
   const ldefautdocuments = result.data.maquis.documents
   ldefautdocuments.forEach((doc,index) => {
     ({titre, description,url,typeDoc,_id} = doc)
