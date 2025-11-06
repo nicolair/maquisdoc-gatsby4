@@ -117,9 +117,7 @@ La relation `Concept` `APPARAIT_DANS` `Document` a la même signification (en in
 
 #### Consistance
 
-Les paragraphes précédents présentent des règles que doit valider la base en graphe pour être consistante. Elles sont rassemblées ici avec des requêtes cypher permetant de les vérifier. Elles sont utilisées dans les $tests de consistance$ figurant dans les scripts de maintenance.
-
-Cette dernière partie, en construction, présente des requêtes cypher testant la validité des règles dans la base réelles. Elles doivent renvoyer `VRAI` lorsque la règle est vérifiée.
+Les paragraphes précédents indiquent des règles que doit valider la base en graphe pour être consistante. Elles sont rassemblées ici avec des requêtes cypher renvoyant un bolléen permettant de les vérifier. La règle est validée lorsque la requête renvoie `VRAI`. Elles sont utilisées dans les *tests de consistance* figurant dans les scripts de maintenance.
 
 *Le libellé d'un concept est un texte non vide*
 
@@ -145,7 +143,13 @@ Cette dernière partie, en construction, présente des requêtes cypher testant 
     MATCH (n1:Evenement),(n2:Evenement)
         WHERE n1.typeEvt = n2.typeEvt AND n1.nom = n2.nom AND id(n1) < id(n2)
     RETURN count(*) = 0  AS bool
-    
+
+*Un noeud site web est caractérisé par son type et son nom*
+
+    MATCH (n1:SiteWeb),(n2:SiteWeb)
+        WHERE n1.typeSiteWeb = n2.typeSiteWeb AND n1.nom = n2.nom AND id(n1) < id(n2)
+    RETURN count(*) = 0  AS bool
+
 ------------------------
 D'autres requêtes utiles.
 

@@ -108,7 +108,8 @@ export default function ProblemesPage({ data }){
 export const query = graphql`
   query {
     maquis {
-      documents(where: {typeDoc: "problème"}, options: {sort: {titre: ASC}}) {
+      documents(where: {typeDoc: {eq: "problème"}},
+                sort: {titre: ASC}) {
         _id
         titre
         description

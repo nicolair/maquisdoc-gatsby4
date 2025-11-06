@@ -30,6 +30,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      
       maquis {
         semaines {
           nom
@@ -55,6 +56,7 @@ exports.createPages = async ({ graphql, actions }) => {
             }
           }
         }
+        
         problemedocuments {
           _id
           titre
@@ -66,6 +68,7 @@ exports.createPages = async ({ graphql, actions }) => {
             nom
           }
         }
+        
         coursdocuments {
           _id
           titre
@@ -83,6 +86,7 @@ exports.createPages = async ({ graphql, actions }) => {
             description
           }
         }
+        
         exercicedocuments{
           _id
           titre
@@ -100,6 +104,7 @@ exports.createPages = async ({ graphql, actions }) => {
             typeDoc
           }
         }
+        
         concepts {
           litteral
           discipline
@@ -120,6 +125,7 @@ exports.createPages = async ({ graphql, actions }) => {
             docId
           }
         }
+        
         feuilleexercicesdocuments{
           titre
           _id
@@ -135,6 +141,7 @@ exports.createPages = async ({ graphql, actions }) => {
             }
           }
         }
+        
         documents{
            titre
            description
@@ -142,6 +149,7 @@ exports.createPages = async ({ graphql, actions }) => {
            typeDoc
          _id
         }
+        
       }
     }
   `)

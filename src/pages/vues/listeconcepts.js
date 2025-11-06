@@ -92,7 +92,7 @@ export default function ListeConceptPage({ data }){
 export const query = graphql`
   query {
     maquis {
-      concepts(options: {sort: {litteral: ASC}}) {
+      concepts(sort: {litteral: ASC}) {
         litteral
         _id
       }

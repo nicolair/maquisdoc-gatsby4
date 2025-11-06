@@ -109,7 +109,8 @@ export default function ListeCoursPage({ data }){
 export const query = graphql`
   query {
     maquis {
-      documents(options: {sort: {titre: ASC}}, where: {typeDoc: "cours"}) {
+      documents(where: {typeDoc: {eq: "cours"}},
+                sort: {titre: ASC}) {
         _id
         titre
         url
