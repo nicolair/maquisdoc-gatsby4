@@ -27,6 +27,12 @@ module.exports = {
           options:{
             maxWidth: 600
           }
+        },
+        {
+          resolve:`gatsby-remark-katex`,
+          options: {
+            strict: `ignore`
+          }
         }
         ]
       }

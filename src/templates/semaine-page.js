@@ -7,7 +7,7 @@ import TitreVue from "../components/titrevue"
 
 import Container from "@mui/material/Container"
 import Button from "@mui/material/Button"
-import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
+import Grid from '@mui/material/Grid'; // Grid version 2
 import Paper from "@mui/material/Paper"
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';

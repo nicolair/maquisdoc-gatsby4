@@ -11,7 +11,7 @@ import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Tooltip from '@mui/material/Tooltip';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 
 import IconeVueDePres from "/src/components/icones/iconevuedepres";
 import IconeDownloadPdf from "/src/components/icones/iconedownloadpdf";

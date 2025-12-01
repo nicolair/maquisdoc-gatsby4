@@ -9,7 +9,7 @@ import IconeVueDePres from "/src/components/icones/iconevuedepres";
 
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';

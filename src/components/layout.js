@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useStaticQuery, Link, graphql } from "gatsby";
 
 import {Box, Typography} from "@mui/material";
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -219,10 +219,12 @@ export default function Layout({ children }) {
         </Grid>
       </Box>
       <Grid container spacing={1}>
-         <Grid xs={4}>
+         <Grid size="Auto">
               <MenuVues/>
          </Grid>
-         <Grid xs={8}>
+         <Grid size="grow">
+         </Grid>
+         <Grid size="Auto">
               <MenuDev/>
          </Grid>
       </Grid>

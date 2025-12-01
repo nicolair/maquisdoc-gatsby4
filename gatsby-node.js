@@ -144,6 +144,7 @@ exports.createPages = async ({ graphql, actions }) => {
         
         documents{
            titre
+           date
            description
            url
            typeDoc
